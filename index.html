@@ -11,7 +11,6 @@
     --navy: #0f1f4e;
     --navy-mid: #1a3170;
     --violet: #5b2de8;
-    --violet-light: #7b52ee;
     --violet-pale: #ede9fd;
     --warm-bg: #faf8f3;
     --cream: #f5f0e8;
@@ -23,136 +22,186 @@
     --bev: #e63946;
     --diesel: #2d8a4e;
     --petrol: #1a6fa8;
-    --estate: #e63946;
-    --limousine: #2d8a4e;
-    --offroad: #1a6fa8;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html { font-size: 16px; scroll-behavior: smooth; }
   body { background: var(--warm-bg); color: var(--text); font-family: 'Inter', sans-serif; font-weight: 400; line-height: 1.65; -webkit-font-smoothing: antialiased; }
 
-  .site-header { background: var(--white); border-bottom: 1px solid var(--border); padding: 1rem 2rem; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
-  .ts-logo { display: flex; align-items: center; gap: 0.6rem; text-decoration: none; }
-  .ts-badge { background: var(--violet); color: white; font-weight: 700; font-size: 0.85rem; width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; }
-  .ts-name { font-weight: 600; font-size: 0.95rem; color: var(--navy); letter-spacing: -0.02em; }
-  .header-tag { background: var(--violet-pale); color: var(--violet); font-size: 0.72rem; font-weight: 600; padding: 0.3rem 0.75rem; border-radius: 20px; letter-spacing: 0.03em; text-transform: uppercase; }
+  /* HEADER */
+  .site-header { background: var(--white); border-bottom: 1px solid var(--border); padding: 0.85rem 2rem; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
+  .ts-logo img { height: 26px; display: block; }
+  .header-right { display: flex; align-items: center; gap: 1rem; }
+  .header-tag { background: var(--violet-pale); color: var(--violet); font-size: 0.7rem; font-weight: 600; padding: 0.25rem 0.7rem; border-radius: 20px; letter-spacing: 0.04em; text-transform: uppercase; }
+  .header-link { font-size: 0.82rem; color: var(--text-muted); text-decoration: none; font-weight: 500; }
+  .header-link:hover { color: var(--navy); }
 
-  .hero { background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 60%, #2a3f8a 100%); color: white; padding: 5rem 2rem 4rem; position: relative; overflow: hidden; }
-  .hero::before { content: ''; position: absolute; top: -40%; right: -10%; width: 600px; height: 600px; background: radial-gradient(circle, rgba(91,45,232,0.25) 0%, transparent 70%); pointer-events: none; }
+  /* HERO */
+  .hero { background: linear-gradient(135deg, #0a1535 0%, #1a2f6e 55%, #2a3f8a 100%); color: white; padding: 5rem 2rem 4.5rem; position: relative; overflow: hidden; }
+  .hero-bg-pattern { position: absolute; top: 0; right: 0; bottom: 0; left: 0; background-image: url('https://assets.ycodeapp.com/assets/app80364/Icons/background_pattern_blue-eyrnuiyqd4.svg'); background-size: 400px; background-position: right top; opacity: 0.15; pointer-events: none; }
+  .hero-glow { position: absolute; top: -20%; right: 5%; width: 500px; height: 500px; background: radial-gradient(circle, rgba(91,45,232,0.3) 0%, transparent 65%); pointer-events: none; }
   .hero-inner { max-width: 800px; margin: 0 auto; position: relative; }
-  .hero-label { display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(91,45,232,0.3); border: 1px solid rgba(91,45,232,0.5); color: #c4b5fd; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.35rem 0.9rem; border-radius: 20px; margin-bottom: 1.5rem; }
-  .hero h1 { font-size: clamp(1.9rem, 4vw, 3rem); font-weight: 700; line-height: 1.15; letter-spacing: -0.03em; margin-bottom: 1.25rem; color: white; }
-  .hero h1 span { color: #a78bfa; }
-  .hero-desc { font-size: 1.05rem; color: rgba(255,255,255,0.75); max-width: 580px; line-height: 1.7; margin-bottom: 2.5rem; }
-  .hero-meta { display: flex; flex-wrap: wrap; gap: 0.5rem; }
-  .meta-pill { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.8); font-size: 0.75rem; padding: 0.3rem 0.8rem; border-radius: 20px; font-weight: 500; }
+  .hero-eyebrow { display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(91,45,232,0.25); border: 1px solid rgba(91,45,232,0.45); color: #c4b5fd; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.35rem 0.9rem; border-radius: 20px; margin-bottom: 1.5rem; }
+  .hero h1 { font-size: clamp(2rem, 4.5vw, 3.2rem); font-weight: 700; line-height: 1.12; letter-spacing: -0.035em; margin-bottom: 1.25rem; }
+  .hero h1 em { color: #a78bfa; font-style: normal; }
+  .hero-lead { font-size: 1.05rem; color: rgba(255,255,255,0.72); max-width: 600px; line-height: 1.75; margin-bottom: 1rem; }
+  .hero-context { font-size: 0.88rem; color: rgba(255,255,255,0.55); max-width: 600px; line-height: 1.7; margin-bottom: 2.5rem; font-style: italic; }
+  .hero-pills { display: flex; flex-wrap: wrap; gap: 0.45rem; }
+  .pill { background: rgba(255,255,255,0.09); border: 1px solid rgba(255,255,255,0.18); color: rgba(255,255,255,0.78); font-size: 0.73rem; padding: 0.28rem 0.75rem; border-radius: 20px; font-weight: 500; }
 
-  .main { max-width: 860px; margin: 0 auto; padding: 0 2rem 4rem; }
+  /* MAIN */
+  .main { max-width: 860px; margin: 0 auto; padding: 0 2rem 5rem; }
 
-  .card { background: var(--white); border: 1px solid var(--border); border-radius: 16px; padding: 2rem; margin-bottom: 1.5rem; }
-  .card-label { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--violet); margin-bottom: 0.6rem; }
-  .card h2 { font-size: 1.2rem; font-weight: 700; color: var(--navy); letter-spacing: -0.02em; margin-bottom: 1rem; line-height: 1.3; }
-  .card p { font-size: 0.92rem; color: var(--text-mid); margin-bottom: 0.9rem; line-height: 1.7; }
+  /* SECTION HEADERS */
+  .section-head { padding: 2.5rem 0 1.25rem; }
+  .section-head h2 { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--violet); }
+
+  /* CARDS */
+  .card { background: var(--white); border: 1px solid var(--border); border-radius: 16px; padding: 2rem; margin-bottom: 1.25rem; }
+  .card-eyebrow { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--violet); margin-bottom: 0.5rem; }
+  .card h3 { font-size: 1.2rem; font-weight: 700; color: var(--navy); letter-spacing: -0.025em; margin-bottom: 1rem; line-height: 1.3; }
+  .card p { font-size: 0.91rem; color: var(--text-mid); margin-bottom: 0.85rem; line-height: 1.72; }
   .card p:last-of-type { margin-bottom: 0; }
+  .card p strong { color: var(--navy); font-weight: 600; }
 
-  .highlight-box { background: var(--violet-pale); border-left: 3px solid var(--violet); border-radius: 0 12px 12px 0; padding: 1.25rem 1.5rem; margin: 1.5rem 0; }
-  .highlight-box p { font-size: 0.95rem; font-weight: 500; color: var(--navy); line-height: 1.6; margin: 0; }
+  /* MECHANISMS */
+  .mechanisms { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; margin: 1.5rem 0; }
+  @media(max-width:680px){ .mechanisms { grid-template-columns: 1fr; } }
+  .mechanism { background: var(--warm-bg); border: 1px solid var(--border); border-radius: 12px; padding: 1.1rem; }
+  .mechanism-num { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--violet); margin-bottom: 0.4rem; }
+  .mechanism h4 { font-size: 0.85rem; font-weight: 700; color: var(--navy); margin-bottom: 0.4rem; line-height: 1.3; }
+  .mechanism p { font-size: 0.78rem; color: var(--text-muted); line-height: 1.6; margin: 0; }
 
-  .context-strip { background: var(--cream); border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem 1.5rem; margin: 1.5rem 0; display: flex; gap: 1rem; align-items: flex-start; }
-  .context-icon { background: var(--navy); color: white; border-radius: 8px; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 700; flex-shrink: 0; margin-top: 2px; }
-  .context-strip p { font-size: 0.85rem; color: var(--text-mid); margin: 0; line-height: 1.6; }
-  .context-strip strong { color: var(--navy); }
+  /* HIGHLIGHT */
+  .highlight { background: var(--violet-pale); border-left: 3px solid var(--violet); border-radius: 0 12px 12px 0; padding: 1.2rem 1.5rem; margin: 1.5rem 0; }
+  .highlight p { font-size: 0.93rem; font-weight: 500; color: var(--navy); line-height: 1.65; margin: 0; }
 
-  .chart-card { background: var(--white); border: 1px solid var(--border); border-radius: 16px; padding: 1.75rem; margin-bottom: 1.5rem; }
-  .chart-title { font-size: 0.95rem; font-weight: 600; color: var(--navy); margin-bottom: 0.2rem; }
-  .chart-note { font-size: 0.75rem; color: var(--text-muted); margin-bottom: 1.25rem; }
-  .chart-wrap canvas { max-height: 280px; }
-  .legend { display: flex; flex-wrap: wrap; gap: 0.75rem 1.25rem; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border); }
-  .legend-item { display: flex; align-items: center; gap: 0.4rem; font-size: 0.78rem; color: var(--text-mid); font-weight: 500; }
-  .legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+  /* INFO BOX */
+  .info-box { background: var(--cream); border: 1px solid var(--border); border-radius: 12px; padding: 1.1rem 1.4rem; margin: 1.25rem 0; display: flex; gap: 0.9rem; align-items: flex-start; }
+  .info-icon { background: var(--navy); color: white; border-radius: 7px; width: 26px; height: 26px; display: flex; align-items: center; justify-content: center; font-size: 0.72rem; font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+  .info-box p { font-size: 0.82rem; color: var(--text-mid); margin: 0; line-height: 1.65; }
+  .info-box strong { color: var(--navy); }
 
-  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem; }
-  @media (max-width: 620px) { .two-col { grid-template-columns: 1fr; } }
+  /* CHARTS */
+  .chart-card { background: var(--white); border: 1px solid var(--border); border-radius: 16px; padding: 1.6rem; margin-bottom: 1.25rem; }
+  .chart-title { font-size: 0.92rem; font-weight: 600; color: var(--navy); margin-bottom: 0.2rem; }
+  .chart-note { font-size: 0.72rem; color: var(--text-muted); margin-bottom: 1.25rem; }
+  .chart-wrap canvas { max-height: 270px; }
+  .legend { display: flex; flex-wrap: wrap; gap: 0.6rem 1.2rem; margin-top: 1rem; padding-top: 0.9rem; border-top: 1px solid var(--border); }
+  .legend-item { display: flex; align-items: center; gap: 0.4rem; font-size: 0.76rem; color: var(--text-mid); font-weight: 500; }
+  .legend-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
 
-  .section-header { padding: 2.5rem 0 1rem; border-bottom: 1px solid var(--border); margin-bottom: 1.5rem; }
-  .section-header h2 { font-size: 1rem; font-weight: 700; color: var(--navy); letter-spacing: -0.01em; }
+  /* TWO COL */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin-bottom: 1.25rem; }
+  @media(max-width:600px){ .two-col { grid-template-columns: 1fr; } }
 
+  /* TABLE */
   .table-wrap { overflow-x: auto; margin-top: 1.25rem; }
-  table { width: 100%; border-collapse: collapse; font-size: 0.83rem; }
-  th { text-align: right; padding: 0.6rem 0.75rem; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-muted); border-bottom: 2px solid var(--navy); }
+  table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+  th { text-align: right; padding: 0.55rem 0.7rem; font-size: 0.67rem; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; color: var(--text-muted); border-bottom: 2px solid var(--navy); }
   th:first-child { text-align: left; }
-  td { padding: 0.65rem 0.75rem; text-align: right; border-bottom: 1px solid var(--border); color: var(--text-mid); font-variant-numeric: tabular-nums; }
+  td { padding: 0.6rem 0.7rem; text-align: right; border-bottom: 1px solid var(--border); color: var(--text-mid); font-variant-numeric: tabular-nums; }
   td:first-child { text-align: left; font-weight: 600; color: var(--navy); }
   tr:last-child td { border-bottom: none; }
   .up { color: #c0392b; font-weight: 600; }
   .stable { color: var(--text-muted); }
-  .bold { font-weight: 600; color: var(--navy); }
-  .table-note { font-size: 0.75rem; color: var(--text-muted); margin-top: 0.75rem; font-style: italic; }
+  .em { font-weight: 600; color: var(--navy); }
+  .table-note { font-size: 0.72rem; color: var(--text-muted); margin-top: 0.75rem; font-style: italic; }
 
-  .method-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; margin-top: 1.25rem; }
-  @media (max-width: 580px) { .method-grid { grid-template-columns: 1fr; } }
-  .method-row { display: flex; gap: 0.75rem; padding: 0.7rem 0; border-bottom: 1px solid var(--border); font-size: 0.82rem; }
+  /* METHOD */
+  .method-rows { display: grid; grid-template-columns: 1fr 1fr; gap: 0; margin-top: 1.25rem; }
+  @media(max-width:560px){ .method-rows { grid-template-columns: 1fr; } }
+  .method-row { display: flex; gap: 0.7rem; padding: 0.65rem 0; border-bottom: 1px solid var(--border); font-size: 0.8rem; }
   .method-row:nth-child(odd) { padding-right: 1.5rem; }
-  .method-key { font-weight: 600; color: var(--navy); min-width: 100px; flex-shrink: 0; }
-  .method-val { color: var(--text-mid); }
+  .mk { font-weight: 600; color: var(--navy); min-width: 90px; flex-shrink: 0; }
+  .mv { color: var(--text-mid); }
 
-  footer { background: var(--navy); color: rgba(255,255,255,0.5); text-align: center; padding: 2rem; font-size: 0.78rem; line-height: 1.8; }
-  footer strong { color: rgba(255,255,255,0.8); }
-  footer a { color: rgba(255,255,255,0.5); }
+  /* FOOTER */
+  footer { background: var(--navy); padding: 3rem 2rem; text-align: center; }
+  footer img { height: 22px; display: block; margin: 0 auto 1.25rem; }
+  footer p { font-size: 0.78rem; color: rgba(255,255,255,0.45); line-height: 1.9; }
+  footer a { color: rgba(255,255,255,0.45); text-decoration: none; }
+  footer a:hover { color: rgba(255,255,255,0.7); }
 </style>
 </head>
 <body>
 
 <header class="site-header">
   <a class="ts-logo" href="https://tracksights.com">
-    <div class="ts-badge">TS</div>
-    <span class="ts-name">TrackSights</span>
+    <img src="https://assets.ycodeapp.com/assets/app80364/Icons/tracksights_logo-xsol6nwyad.svg" alt="TrackSights">
   </a>
-  <span class="header-tag">Market Intelligence</span>
+  <div class="header-right">
+    <span class="header-tag">Market Intelligence</span>
+    <a class="header-link" href="https://tracksights.com">tracksights.com</a>
+  </div>
 </header>
 
 <section class="hero">
+  <div class="hero-bg-pattern"></div>
+  <div class="hero-glow"></div>
   <div class="hero-inner">
-    <div class="hero-label">DE Used Car Market · April 2026</div>
-    <h1>Powertrain Update:<br><span>Germany, Oct 2025 – Mar 2026</span></h1>
-    <p class="hero-desc">How are different powertrain types developing in the German used-car market — and what does the new EV subsidy mean for young used BEV pricing?</p>
-    <div class="hero-meta">
-      <span class="meta-pill">Dealer listings · DE</span>
-      <span class="meta-pill">Young used ~12 months</span>
-      <span class="meta-pill">Baseline Oct/Nov 2025 = 100</span>
-      <span class="meta-pill">v5 · 2026-04-05</span>
+    <div class="hero-eyebrow">DE Used Car Market · April 2026</div>
+    <h1>Powertrain Update:<br><em>Germany, Oct 2025 – Mar 2026</em></h1>
+    <p class="hero-lead">How is the German used-car market responding to the new E-Auto-Förderprogramm — and what does it mean for young used BEV pricing?</p>
+    <p class="hero-context">Germany's new private EV support programme was politically decided in Oct/Nov 2025 with eligibility from 1 January 2026. Applications are expected from May 2026. Dealers are already offering advance financing arrangements. This analysis tracks the earliest market signals.</p>
+    <div class="hero-pills">
+      <span class="pill">Dealer listings · DE</span>
+      <span class="pill">Young used ~12 months</span>
+      <span class="pill">Baseline Oct/Nov 2025 = 100</span>
+      <span class="pill">Flow analysis · asking prices</span>
+      <span class="pill">v5 · April 2026</span>
     </div>
   </div>
 </section>
 
 <div class="main">
 
-  <div style="padding: 2rem 0 0;">
-    <div class="card">
-      <div class="card-label">Context</div>
-      <h2>Why we focus on young used BEVs</h2>
-      <p>Battery Electric Vehicles (BEVs) are fully electric cars — powered entirely by a rechargeable battery, with no combustion engine. In Germany, a new private EV subsidy scheme came into effect on 1 January 2026, designed to stimulate sales of new electric vehicles.</p>
-      <p>When new BEVs become cheaper through subsidies, demand may shift away from young used BEVs — since the price gap between new and nearly-new shrinks. This analysis examines whether that tension is visible in listing data for young used cars (approximately 12 months old).</p>
-      <div class="context-strip">
-        <div class="context-icon">i</div>
-        <p><strong>What we measure:</strong> This is a flow analysis — we track new listings created each month, not total inventory. These are <strong>asking prices</strong>, not transaction prices. A rising index reflects sellers pricing higher on new listings; it does not confirm what cars actually sell for.</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="section-header">
-    <h2>Key findings</h2>
-  </div>
+  <!-- CONTEXT -->
+  <div class="section-head"><h2>Background</h2></div>
 
   <div class="card">
-    <div class="card-label">BEV pricing</div>
-    <h2>BEV asking prices and residual value rise in tandem — a market under tension</h2>
-    <p>The most significant pattern across the six-month period is the sustained upward movement in BEV asking prices — reaching approximately 110 in March 2026, up from 100 at baseline. Diesel and Petrol remain broadly stable, confirming this is a powertrain-specific dynamic rather than a general market shift.</p>
-    <div class="highlight-box">
-      <p>For BEV, both asking price and RV%-index move in the same direction and at a similar magnitude. This is consistent with sellers' pricing ambitions broadly across models — not merely a change in which models are coming to market.</p>
+    <div class="card-eyebrow">The policy context</div>
+    <h3>Germany's new EV support programme and the used-car market</h3>
+    <p>Battery Electric Vehicles (BEVs) are fully electric cars — powered entirely by a rechargeable battery, with no combustion engine. Germany's new <strong>E-Auto-Förderprogramm</strong> was announced in October/November 2025 and took effect from 1 January 2026. Applications open from May 2026, with income-dependent support primarily targeting BEV purchases. Dealers are already offering advance financing arrangements ahead of the application portal opening.</p>
+    <p>This creates three market mechanisms that are relevant for young used BEVs — cars approximately 12 months old that compete directly with subsidised new cars:</p>
+
+    <div class="mechanisms">
+      <div class="mechanism">
+        <div class="mechanism-num">Channel 1</div>
+        <h4>Expectation &amp; waiting</h4>
+        <p>Buyers delay purchases while waiting for programme details and the application process — showing up first as longer days-on-market.</p>
+      </div>
+      <div class="mechanism">
+        <div class="mechanism-num">Channel 2</div>
+        <h4>Substitution effect</h4>
+        <p>As the effective price of new BEVs falls for eligible buyers, demand may shift from young used to new — putting downward pressure on used prices.</p>
+      </div>
+      <div class="mechanism">
+        <div class="mechanism-num">Channel 3</div>
+        <h4>Dealer advance financing</h4>
+        <p>Dealers offering financing ahead of the May 2026 portal opening may partially accelerate demand — but also adds to supply pressure on young used BEV inventory.</p>
+      </div>
     </div>
-    <p>The residual value (RV%) index measures how cars are priced relative to their original new-car reference price. When both asking price <em>and</em> RV% rise together, it indicates that sellers are actively defending price levels relative to what the car cost new — not just a coincidence of different models entering the market.</p>
-    <p>This is consistent with a market under tension: sellers holding asking prices up on new listings, even as days-on-market increase — a pattern consistent with the analysis in Autohaus Magazin (February 2026), now confirmed and strengthened over a longer six-month period.</p>
+
+    <div class="info-box">
+      <div class="info-icon">i</div>
+      <p><strong>What this analysis measures:</strong> New listings created by dealers each month (flow, not stock inventory). These are <strong>asking prices</strong> — not transaction prices. A rising index reflects sellers pricing higher on new listings entering the market; it does not confirm what cars actually sell for. Standtage (days-on-market) are not measurable from this data source.</p>
+    </div>
+  </div>
+
+  <!-- KEY FINDINGS -->
+  <div class="section-head"><h2>Key findings</h2></div>
+
+  <div class="card">
+    <div class="card-eyebrow">BEV pricing</div>
+    <h3>Sellers hold prices up — BEV asking price and residual value rise in tandem</h3>
+    <p>The most significant pattern across the six-month period is the sustained upward movement in BEV asking prices — reaching approximately 110 in March 2026, up from 100 at baseline. <strong>Diesel and Petrol remain broadly stable</strong>, confirming this is a powertrain-specific dynamic rather than a general market movement.</p>
+
+    <div class="highlight">
+      <p>For BEV, both asking price and RV%-index move in the same direction and at a similar magnitude. This is consistent with sellers' pricing ambitions broadly across models — not merely a change in which models are entering the market.</p>
+    </div>
+
+    <p>The <strong>residual value (RV%) index</strong> measures how cars are priced relative to their original new-car reference price (DAT). When both asking price and RV% rise together, it indicates that sellers are actively defending price levels across model types — not just a reflection of more expensive cars entering the flow.</p>
+    <p>This is consistent with a market under tension: sellers holding asking prices up on new listings, even as days-on-market are reported to be increasing. The pattern is consistent with the dynamics described in Autohaus Magazin (February 2026) — and now confirmed and strengthened across a six-month period.</p>
   </div>
 
   <div class="chart-card">
@@ -160,35 +209,34 @@
     <div class="chart-note">Median asking price · baseline Oct/Nov 2025 = 100 · DE dealer listings · young used ~12m</div>
     <div class="chart-wrap"><canvas id="chart1"></canvas>
       <div class="legend">
-        <div class="legend-item"><div class="legend-dot" style="background:var(--bev)"></div>BEV (Battery Electric)</div>
-        <div class="legend-item"><div class="legend-dot" style="background:var(--diesel)"></div>Diesel</div>
-        <div class="legend-item"><div class="legend-dot" style="background:var(--petrol)"></div>Petrol</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#e63946"></div>BEV (Battery Electric)</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#2d8a4e"></div>Diesel</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#1a6fa8"></div>Petrol</div>
       </div>
     </div>
   </div>
 
   <div class="chart-card">
     <div class="chart-title">Residual value — reference-based index by powertrain</div>
-    <div class="chart-note">RV% = asking price / DAT GrossOriginalPrice · baseline Oct/Nov 2025 = 100</div>
+    <div class="chart-note">RV% = asking price / DAT GrossOriginalPrice · baseline Oct/Nov 2025 = 100 · all series coverage ≥ 30%</div>
     <div class="chart-wrap"><canvas id="chart2"></canvas>
       <div class="legend">
-        <div class="legend-item"><div class="legend-dot" style="background:var(--bev)"></div>BEV</div>
-        <div class="legend-item"><div class="legend-dot" style="background:var(--diesel)"></div>Diesel</div>
-        <div class="legend-item"><div class="legend-dot" style="background:var(--petrol)"></div>Petrol</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#e63946"></div>BEV</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#2d8a4e"></div>Diesel</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#1a6fa8"></div>Petrol</div>
       </div>
     </div>
   </div>
 
-  <div class="section-header">
-    <h2>BEV segment detail</h2>
-  </div>
+  <!-- BEV SEGMENTS -->
+  <div class="section-head"><h2>BEV segment detail</h2></div>
 
   <div class="card">
-    <div class="card-label">Within BEV</div>
-    <h2>Different dynamics across body types</h2>
-    <p><strong>EstateCar</strong> (station wagons) shows the strongest absolute price increase — dominated by premium models with high reference prices, where absolute movements are large but the RV%-index movement is more moderate.</p>
-    <p><strong>OffRoad and Limousine</strong> (SUVs and sedans) show stronger RV%-index increases. These mid-range segments are pricing more aggressively relative to their original new-car price — this is where the tension between supply and pricing ambition is most visible.</p>
-    <p>The divergence is analytically meaningful: EstateCar's high absolute prices partly reflect the premium models in that segment, while OffRoad and Limousine's RV% strength suggests broader price pressure relative to new-car reference prices.</p>
+    <div class="card-eyebrow">Within BEV</div>
+    <h3>Different dynamics across body types</h3>
+    <p><strong>EstateCar</strong> (station wagons) shows the strongest absolute price increase — dominated by premium models with high reference prices. The asking price index reaches ~112 in March, but the RV%-index movement is more moderate, consistent with a premium mix-effect rather than broad price pressure.</p>
+    <p><strong>OffRoad and Limousine</strong> (SUVs and sedans) show stronger RV%-index increases, reaching ~111 and ~108 respectively in March. These mid-range segments are pricing more aggressively relative to their original new-car price — this is where the tension between supply and pricing ambition is most visible in the data.</p>
+    <p>The divergence between asking price and RV% across segments is analytically meaningful: OffRoad and Limousine's RV% strength points to broader-based price pressure that goes beyond model mix.</p>
   </div>
 
   <div class="two-col">
@@ -197,9 +245,9 @@
       <div class="chart-note">Index · baseline Oct/Nov 2025 = 100</div>
       <div class="chart-wrap"><canvas id="chart3"></canvas>
         <div class="legend">
-          <div class="legend-item"><div class="legend-dot" style="background:var(--estate)"></div>EstateCar</div>
-          <div class="legend-item"><div class="legend-dot" style="background:var(--limousine)"></div>Limousine</div>
-          <div class="legend-item"><div class="legend-dot" style="background:var(--offroad)"></div>OffRoad</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#e63946"></div>EstateCar</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#2d8a4e"></div>Limousine</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#1a6fa8"></div>OffRoad</div>
         </div>
       </div>
     </div>
@@ -208,61 +256,60 @@
       <div class="chart-note">RV%-index · baseline Oct/Nov 2025 = 100</div>
       <div class="chart-wrap"><canvas id="chart4"></canvas>
         <div class="legend">
-          <div class="legend-item"><div class="legend-dot" style="background:var(--estate)"></div>EstateCar</div>
-          <div class="legend-item"><div class="legend-dot" style="background:var(--limousine)"></div>Limousine</div>
-          <div class="legend-item"><div class="legend-dot" style="background:var(--offroad)"></div>OffRoad</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#e63946"></div>EstateCar</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#2d8a4e"></div>Limousine</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#1a6fa8"></div>OffRoad</div>
         </div>
       </div>
     </div>
   </div>
 
-  <div class="section-header" style="margin-top:1.5rem">
-    <h2>Index table</h2>
-  </div>
+  <!-- TABLE -->
+  <div class="section-head"><h2>Index table</h2></div>
 
   <div class="card">
-    <div class="card-label">Data</div>
-    <h2>Asking price index by powertrain</h2>
+    <div class="card-eyebrow">Data</div>
+    <h3>Asking price index by powertrain</h3>
     <p>Median asking price, listing creation month. Baseline Oct/Nov 2025 = 100 per series.</p>
     <div class="table-wrap">
       <table>
         <thead><tr><th>Powertrain</th><th>Oct/Nov</th><th>Dec 25</th><th>Jan 26</th><th>Feb 26</th><th>Mar 26</th><th>Trend</th></tr></thead>
         <tbody>
-          <tr><td>BEV</td><td>100</td><td>102.1</td><td class="bold">108.0</td><td>104.9</td><td class="bold up">109.5</td><td class="up">↑ upward</td></tr>
+          <tr><td>BEV</td><td>100</td><td>102.1</td><td class="em">108.0</td><td>104.9</td><td class="em up">109.5</td><td class="up">↑ upward</td></tr>
           <tr><td>Diesel</td><td>100</td><td>101.4</td><td>103.1</td><td>101.7</td><td>103.3</td><td class="stable">→ stable</td></tr>
           <tr><td>Petrol</td><td>100</td><td>97.8</td><td>101.0</td><td>100.5</td><td>99.4</td><td class="stable">→ stable</td></tr>
         </tbody>
       </table>
     </div>
-    <p class="table-note">PHEV and HEV proxy series retained in full Excel appendix. Rule-based proxy classifications — interpret with caution.</p>
+    <p class="table-note">PHEV and HEV proxy series available in full Excel appendix. Rule-based proxy classifications — interpret with caution due to thinner data and higher mix-volatility.</p>
   </div>
 
-  <div class="section-header">
-    <h2>Methodology</h2>
-  </div>
+  <!-- METHOD -->
+  <div class="section-head"><h2>Methodology</h2></div>
 
   <div class="card">
-    <div class="card-label">How this is produced</div>
-    <h2>Technical reference</h2>
+    <div class="card-eyebrow">Technical reference</div>
+    <h3>How this analysis is produced</h3>
     <p>All results are descriptive patterns in listing data. Month-to-month movements may reflect market dynamics, mix shifts, seasonality, or data artefacts. No causal claims are made.</p>
-    <div class="method-grid">
-      <div class="method-row"><span class="method-key">Source</span><span class="method-val">DE dealer listings (asking prices)</span></div>
-      <div class="method-row"><span class="method-key">Unit</span><span class="method-val">Listing · not transaction price</span></div>
-      <div class="method-row"><span class="method-key">Time axis</span><span class="method-val">Listing creation month (flow)</span></div>
-      <div class="method-row"><span class="method-key">Age</span><span class="method-val">~12m (330–420 days since reg.)</span></div>
-      <div class="method-row"><span class="method-key">RV%</span><span class="method-val">Asking price / DAT GrossOriginalPrice</span></div>
-      <div class="method-row"><span class="method-key">Baseline</span><span class="method-val">Oct + Nov 2025 = 100 per series</span></div>
-      <div class="method-row"><span class="method-key">Hybrids</span><span class="method-val">Rule-based proxy · not OEM labels</span></div>
-      <div class="method-row"><span class="method-key">Standtage</span><span class="method-val">Not measurable from this source</span></div>
+    <div class="method-rows">
+      <div class="method-row"><span class="mk">Source</span><span class="mv">DE dealer listings (asking prices)</span></div>
+      <div class="method-row"><span class="mk">Unit</span><span class="mv">Listing · not transaction price</span></div>
+      <div class="method-row"><span class="mk">Time axis</span><span class="mv">Listing creation month (flow)</span></div>
+      <div class="method-row"><span class="mk">Age</span><span class="mv">~12m (330–420 days since reg.)</span></div>
+      <div class="method-row"><span class="mk">RV%</span><span class="mv">Asking price / DAT GrossOriginalPrice</span></div>
+      <div class="method-row"><span class="mk">Baseline</span><span class="mv">Oct + Nov 2025 = 100 per series</span></div>
+      <div class="method-row"><span class="mk">Hybrids</span><span class="mv">Rule-based proxy · not OEM labels</span></div>
+      <div class="method-row"><span class="mk">Standtage</span><span class="mv">Not measurable from this source</span></div>
     </div>
   </div>
 
 </div>
 
 <footer>
-  <strong>TrackSights Analytics</strong><br>
-  DE Powertrain Market Update · v5 · April 2026<br>
-  Analysis: Øystein Wasteson · <a href="https://tracksights.com">tracksights.com</a>
+  <img src="https://assets.ycodeapp.com/assets/app80364/Icons/tracksifhts_logo_white-yso3sa7s86.svg" alt="TrackSights">
+  <p>DE Powertrain Market Update · v5 · April 2026<br>
+  Analysis: Øystein Wasteson · <a href="https://tracksights.com">tracksights.com</a><br>
+  © 2026 TrackSights.com ApS</p>
 </footer>
 
 <script>
@@ -272,7 +319,7 @@ const cfg = {
   plugins:{ legend:{display:false}, tooltip:{ backgroundColor:'#0f1f4e', titleFont:{family:'Inter',size:11,weight:'600'}, bodyFont:{family:'Inter',size:11}, padding:10, cornerRadius:8, callbacks:{label:c=>` ${c.dataset.label}: ${c.parsed.y.toFixed(1)}`} } },
   scales:{ x:{grid:{color:'#f0eef8'},ticks:{font:{family:'Inter',size:10},color:'#7a7d9a'}}, y:{grid:{color:'#f0eef8'},ticks:{font:{family:'Inter',size:10},color:'#7a7d9a',callback:v=>v.toFixed(0)}} }
 };
-function ds(label,color,data){return{label,data,borderColor:color,backgroundColor:color+'15',borderWidth:2.5,pointRadius:5,pointHoverRadius:7,pointBackgroundColor:'#fff',pointBorderColor:color,pointBorderWidth:2,tension:0.2,fill:false};}
+function ds(label,color,data){return{label,data,borderColor:color,backgroundColor:color+'12',borderWidth:2.5,pointRadius:5,pointHoverRadius:7,pointBackgroundColor:'#fff',pointBorderColor:color,pointBorderWidth:2.5,tension:0.2,fill:false};}
 new Chart(document.getElementById('chart1'),{type:'line',data:{labels:months,datasets:[ds('BEV','#e63946',[100,102.1,108.0,104.9,109.5]),ds('Diesel','#2d8a4e',[100,101.4,103.1,101.7,103.3]),ds('Petrol','#1a6fa8',[100,97.8,101.0,100.5,99.4])]},options:{...cfg,scales:{...cfg.scales,y:{...cfg.scales.y,min:94,max:114}}}});
 new Chart(document.getElementById('chart2'),{type:'line',data:{labels:months,datasets:[ds('BEV','#e63946',[100,100.7,106.8,107.0,109.4]),ds('Diesel','#2d8a4e',[100,99.5,99.3,98.5,97.9]),ds('Petrol','#1a6fa8',[100,100.4,101.4,100.2,99.9])]},options:{...cfg,scales:{...cfg.scales,y:{...cfg.scales.y,min:94,max:114}}}});
 new Chart(document.getElementById('chart3'),{type:'line',data:{labels:months,datasets:[ds('EstateCar','#e63946',[100,112.2,104.7,111.1,109.3]),ds('Limousine','#2d8a4e',[100,106.7,101.6,101.8,101.9]),ds('OffRoad','#1a6fa8',[100,97.7,107.4,103.7,106.1])]},options:{...cfg,scales:{...cfg.scales,y:{...cfg.scales.y,min:92,max:118}}}});
