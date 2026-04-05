@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TrackSights — DE Used Car Market: Powertrain Update</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=IBM+Plex+Sans:wght@300;400;500&family=IBM+Plex+Mono:wght@400&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+  :root {
+    --ink: #1a1814;
+    --ink-light: #4a4540;
+    --ink-muted: #8a847e;
+    --paper: #faf8f4;
+    --paper-warm: #f2ede4;
+    --rule: #d8d0c4;
+    --accent: #c8360a;
+    --bev: #c0392b;
+    --diesel: #7a8c2a;
+    --petrol: #1a6fa8;
+    --estate: #c0392b;
+    --limousine: #27ae60;
+    --offroad: #2980b9;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 16px; scroll-behavior: smooth; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+  }
+
+  /* MASTHEAD */
+  .masthead {
+    border-bottom: 2px solid var(--ink);
+    padding: 2.5rem 0 1.5rem;
+    margin-bottom: 0;
+  }
+  .masthead-inner {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+  .brand {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.75rem;
+  }
+  .report-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 600;
+    line-height: 1.15;
+    color: var(--ink);
+    margin-bottom: 1rem;
+  }
+  .meta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    font-size: 0.8rem;
+    color: var(--ink-muted);
+    font-family: 'IBM Plex Mono', monospace;
+    border-top: 1px solid var(--rule);
+    padding-top: 1rem;
+    margin-top: 1rem;
+  }
+  .meta-item strong { color: var(--ink-light); }
+
+  /* LAYOUT */
+  .container {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  /* SECTIONS */
+  .section {
+    padding: 3rem 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .section:last-child { border-bottom: none; }
+
+  .section-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+  }
+  h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1.25rem;
+    color: var(--ink);
+  }
+  p { margin-bottom: 1rem; color: var(--ink-light); font-size: 0.95rem; }
+  p:last-child { margin-bottom: 0; }
+
+  /* PULLQUOTE */
+  .pullquote {
+    border-left: 3px solid var(--accent);
+    padding: 1rem 1.5rem;
+    margin: 2rem 0;
+    background: var(--paper-warm);
+  }
+  .pullquote p {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    font-style: italic;
+    color: var(--ink);
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  /* CHARTS */
+  .chart-block {
+    margin: 2rem 0;
+  }
+  .chart-title {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 0.25rem;
+  }
+  .chart-subtitle {
+    font-size: 0.75rem;
+    color: var(--ink-muted);
+    margin-bottom: 1rem;
+    font-family: 'IBM Plex Mono', monospace;
+  }
+  .chart-wrap {
+    background: white;
+    border: 1px solid var(--rule);
+    padding: 1.5rem 1.5rem 1rem;
+    position: relative;
+  }
+  .chart-wrap canvas { max-height: 320px; }
+
+  /* LEGEND */
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem 1.5rem;
+    margin-top: 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--rule);
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.75rem;
+    color: var(--ink-light);
+    font-family: 'IBM Plex Mono', monospace;
+  }
+  .legend-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* INDEX TABLE */
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.82rem;
+    margin-top: 1.5rem;
+  }
+  .data-table th {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    text-align: right;
+    padding: 0.5rem 0.75rem;
+    border-bottom: 2px solid var(--ink);
+    font-weight: 400;
+  }
+  .data-table th:first-child { text-align: left; }
+  .data-table td {
+    padding: 0.6rem 0.75rem;
+    text-align: right;
+    border-bottom: 1px solid var(--rule);
+    color: var(--ink-light);
+    font-family: 'IBM Plex Mono', monospace;
+  }
+  .data-table td:first-child {
+    text-align: left;
+    font-weight: 500;
+    color: var(--ink);
+    font-family: 'IBM Plex Sans', sans-serif;
+  }
+  .data-table tr:last-child td { border-bottom: none; }
+  .data-table .up { color: #c0392b; }
+  .data-table .stable { color: var(--ink-muted); }
+  .data-table td.highlight { font-weight: 500; color: var(--ink); }
+
+  /* TWO-COL SEGMENT */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin: 2rem 0;
+  }
+  @media (max-width: 640px) { .two-col { grid-template-columns: 1fr; } }
+
+  /* METHOD BOX */
+  .method-box {
+    background: var(--paper-warm);
+    border: 1px solid var(--rule);
+    padding: 2rem;
+    margin-top: 2rem;
+  }
+  .method-box h3 {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.25rem;
+  }
+  .method-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem 2rem;
+  }
+  @media (max-width: 580px) { .method-grid { grid-template-columns: 1fr; } }
+  .method-item {
+    font-size: 0.8rem;
+    color: var(--ink-light);
+    padding: 0.4rem 0;
+    border-bottom: 1px solid var(--rule);
+    display: flex;
+    gap: 0.5rem;
+  }
+  .method-item strong {
+    color: var(--ink);
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  /* FOOTER */
+  footer {
+    padding: 2rem;
+    text-align: center;
+    font-size: 0.75rem;
+    color: var(--ink-muted);
+    font-family: 'IBM Plex Mono', monospace;
+    border-top: 1px solid var(--rule);
+    margin-top: 2rem;
+  }
+
+  /* FADE IN */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .section { animation: fadeUp 0.5s ease both; }
+  .section:nth-child(2) { animation-delay: 0.1s; }
+  .section:nth-child(3) { animation-delay: 0.2s; }
+  .section:nth-child(4) { animation-delay: 0.3s; }
+</style>
+</head>
+<body>
+
+<div class="masthead">
+  <div class="masthead-inner">
+    <div class="brand">TrackSights Analytics</div>
+    <h1 class="report-title">DE Used Car Market:<br>Powertrain Update</h1>
+    <div class="meta-row">
+      <span><strong>Period</strong> Oct/Nov 2025 → Mar 2026</span>
+      <span><strong>Version</strong> v5 · 2026-04-05</span>
+      <span><strong>Scope</strong> DE dealer listings · young used ~12m</span>
+      <span><strong>Baseline</strong> Oct/Nov 2025 = 100</span>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- SECTION 1: WHAT WE MEASURE -->
+  <div class="section">
+    <div class="section-label">Methodology</div>
+    <h2>What this analysis measures</h2>
+    <p>This analysis tracks new used-car listings created by dealers in Germany — what we call the <em>flow lens</em>. Unlike a stock snapshot of all inventory, flow data captures the earliest signal: what sellers price cars at the moment they enter the market.</p>
+    <p>These are <strong>asking prices</strong> — we do not observe what cars actually sell for. All series are indexed with October/November 2025 = 100, and we focus on young used vehicles approximately 12 months old.</p>
+  </div>
+
+  <!-- SECTION 2: KEY FINDING -->
+  <div class="section">
+    <div class="section-label">Key finding</div>
+    <h2>BEV asking prices and residual value rise in tandem</h2>
+
+    <p>The most significant pattern across the full six-month period is the sustained upward movement in BEV asking prices — reaching approximately 109 in March 2026, up from baseline. Diesel and Petrol remain broadly stable, reinforcing that this is a powertrain-specific dynamic.</p>
+
+    <div class="pullquote">
+      <p>For BEV, both asking price and RV%-index move in the same direction and at a similar magnitude. This is consistent with sellers' pricing ambitions broadly across models — not merely a change in which models are coming to market.</p>
+    </div>
+
+    <p>This pattern is consistent with the dynamics described in Martin Verrelli's February 2026 Autohaus Magazin analysis: a market under tension where sellers are holding prices up on new listings, even as days-on-market increase. The updated six-month picture confirms and strengthens that finding.</p>
+
+    <!-- CHART 1 -->
+    <div class="chart-block">
+      <div class="chart-title">Used-price development — index by powertrain</div>
+      <div class="chart-subtitle">Median asking price · baseline Oct/Nov 2025 = 100 · DE dealer listings · young used ~12m</div>
+      <div class="chart-wrap">
+        <canvas id="chart1"></canvas>
+        <div class="legend">
+          <div class="legend-item"><div class="legend-dot" style="background:var(--bev)"></div>BEV</div>
+          <div class="legend-item"><div class="legend-dot" style="background:var(--diesel)"></div>Diesel</div>
+          <div class="legend-item"><div class="legend-dot" style="background:var(--petrol)"></div>Petrol</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CHART 2 -->
+    <div class="chart-block">
+      <div class="chart-title">Residual value — reference-based index by powertrain</div>
+      <div class="chart-subtitle">RV% = asking price / DAT GrossOriginalPrice · baseline Oct/Nov 2025 = 100</div>
+      <div class="chart-wrap">
+        <canvas id="chart2"></canvas>
+        <div class="legend">
+          <div class="legend-item"><div class="legend-dot" style="background:var(--bev)"></div>BEV</div>
+          <div class="legend-item"><div class="legend-dot" style="background:var(--diesel)"></div>Diesel</div>
+          <div class="legend-item"><div class="legend-dot" style="background:var(--petrol)"></div>Petrol</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 3: BEV SEGMENTS -->
+  <div class="section">
+    <div class="section-label">BEV segment detail</div>
+    <h2>Different dynamics within BEV</h2>
+
+    <p>Within BEV, the three largest segments show meaningfully different patterns. EstateCar shows the strongest absolute price increase in asking prices — dominated by premium models with high reference prices, where absolute movements are large but RV% movement is more moderate.</p>
+    <p>OffRoad and Limousine show stronger RV%-index increases. These mid-range segments are pricing more aggressively relative to original new-car price — this is where the tension between supply and pricing ambition is most visible in the data.</p>
+
+    <div class="two-col">
+      <div class="chart-block">
+        <div class="chart-title">BEV asking price by segment</div>
+        <div class="chart-subtitle">Index · baseline Oct/Nov 2025 = 100</div>
+        <div class="chart-wrap">
+          <canvas id="chart3"></canvas>
+          <div class="legend">
+            <div class="legend-item"><div class="legend-dot" style="background:var(--estate)"></div>EstateCar</div>
+            <div class="legend-item"><div class="legend-dot" style="background:var(--limousine)"></div>Limousine</div>
+            <div class="legend-item"><div class="legend-dot" style="background:var(--offroad)"></div>OffRoad</div>
+          </div>
+        </div>
+      </div>
+      <div class="chart-block">
+        <div class="chart-title">BEV residual value by segment</div>
+        <div class="chart-subtitle">RV%-index · baseline Oct/Nov 2025 = 100</div>
+        <div class="chart-wrap">
+          <canvas id="chart4"></canvas>
+          <div class="legend">
+            <div class="legend-item"><div class="legend-dot" style="background:var(--estate)"></div>EstateCar</div>
+            <div class="legend-item"><div class="legend-dot" style="background:var(--limousine)"></div>Limousine</div>
+            <div class="legend-item"><div class="legend-dot" style="background:var(--offroad)"></div>OffRoad</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 4: INDEX TABLE -->
+  <div class="section">
+    <div class="section-label">Data</div>
+    <h2>Index table</h2>
+    <p>Asking price index (median p50, listing creation month). Baseline Oct/Nov 2025 = 100 per series.</p>
+
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Powertrain</th>
+          <th>Oct/Nov</th>
+          <th>Dec 25</th>
+          <th>Jan 26</th>
+          <th>Feb 26</th>
+          <th>Mar 26</th>
+          <th>Trend</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>BEV</td>
+          <td>100</td>
+          <td class="highlight">102.1</td>
+          <td class="highlight">108.0</td>
+          <td class="highlight">104.9</td>
+          <td class="highlight up">109.5</td>
+          <td class="up">↑ upward</td>
+        </tr>
+        <tr>
+          <td>Diesel</td>
+          <td>100</td>
+          <td>101.4</td>
+          <td>103.1</td>
+          <td>101.7</td>
+          <td>103.3</td>
+          <td class="stable">→ stable</td>
+        </tr>
+        <tr>
+          <td>Petrol</td>
+          <td>100</td>
+          <td>97.8</td>
+          <td>101.0</td>
+          <td>100.5</td>
+          <td>99.4</td>
+          <td class="stable">→ stable</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p style="margin-top:1rem; font-size:0.78rem; color:var(--ink-muted); font-family:'IBM Plex Mono',monospace;">PHEV_proxy and HEV_proxy retained in full Excel appendix. Rule-based proxy classifications — interpret with caution.</p>
+  </div>
+
+  <!-- SECTION 5: METHOD -->
+  <div class="section">
+    <div class="section-label">Method</div>
+    <h2>How this analysis is produced</h2>
+    <p>All results are descriptive patterns in listing data. Month-to-month movements may reflect market dynamics, mix shifts, seasonality, or data artefacts. No causal claims are made.</p>
+
+    <div class="method-box">
+      <h3>Technical reference</h3>
+      <div class="method-grid">
+        <div class="method-item"><strong>Source</strong> DE dealer listings (asking prices)</div>
+        <div class="method-item"><strong>Unit</strong> Listing · not transaction price</div>
+        <div class="method-item"><strong>Time axis</strong> Listing creation month (flow)</div>
+        <div class="method-item"><strong>Age</strong> ~12m (330–420 days since reg.)</div>
+        <div class="method-item"><strong>RV%</strong> asking price / DAT GrossOriginalPrice</div>
+        <div class="method-item"><strong>Baseline</strong> Oct + Nov 2025 = 100</div>
+        <div class="method-item"><strong>Hybrids</strong> Rule-based proxy · not OEM labels</div>
+        <div class="method-item"><strong>Standtage</strong> Not measurable from this source</div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /container -->
+
+<footer>
+  TrackSights Analytics · v5 · 2026-04-05 · Analysis: Øystein Wasteson
+</footer>
+
+<script>
+const months = ['Oct/Nov 25','Dec 25','Jan 26','Feb 26','Mar 26'];
+
+const chartDefaults = {
+  responsive: true,
+  maintainAspectRatio: true,
+  plugins: {
+    legend: { display: false },
+    tooltip: {
+      backgroundColor: '#1a1814',
+      titleFont: { family: "'IBM Plex Mono', monospace", size: 11 },
+      bodyFont:  { family: "'IBM Plex Mono', monospace", size: 11 },
+      padding: 10,
+      callbacks: {
+        label: ctx => ` ${ctx.dataset.label}: ${ctx.parsed.y.toFixed(1)}`
+      }
+    }
+  },
+  scales: {
+    x: {
+      grid: { color: '#e8e0d4', lineWidth: 0.5 },
+      ticks: { font: { family: "'IBM Plex Mono', monospace", size: 10 }, color: '#8a847e' }
+    },
+    y: {
+      grid: { color: '#e8e0d4', lineWidth: 0.5 },
+      ticks: { font: { family: "'IBM Plex Mono', monospace", size: 10 }, color: '#8a847e' },
+    }
+  }
+};
+
+function lineDs(label, color, data) {
+  return {
+    label, data,
+    borderColor: color,
+    backgroundColor: color + '18',
+    borderWidth: 2,
+    pointRadius: 4,
+    pointHoverRadius: 6,
+    pointBackgroundColor: color,
+    tension: 0.15,
+    fill: false
+  };
+}
+
+// Chart 1 — Price index
+new Chart(document.getElementById('chart1'), {
+  type: 'line',
+  data: {
+    labels: months,
+    datasets: [
+      lineDs('BEV',    '#c0392b', [100, 102.1, 108.0, 104.9, 109.5]),
+      lineDs('Diesel', '#7a8c2a', [100, 101.4, 103.1, 101.7, 103.3]),
+      lineDs('Petrol', '#1a6fa8', [100,  97.8, 101.0, 100.5,  99.4]),
+    ]
+  },
+  options: {
+    ...chartDefaults,
+    scales: {
+      ...chartDefaults.scales,
+      y: { ...chartDefaults.scales.y, min: 94, max: 114,
+           ticks: { ...chartDefaults.scales.y.ticks,
+             callback: v => v.toFixed(0) } }
+    }
+  }
+});
+
+// Chart 2 — RV index
+new Chart(document.getElementById('chart2'), {
+  type: 'line',
+  data: {
+    labels: months,
+    datasets: [
+      lineDs('BEV',    '#c0392b', [100, 100.7, 106.8, 107.0, 109.4]),
+      lineDs('Diesel', '#7a8c2a', [100,  99.5,  99.3,  98.5,  97.9]),
+      lineDs('Petrol', '#1a6fa8', [100, 100.4, 101.4, 100.2,  99.9]),
+    ]
+  },
+  options: {
+    ...chartDefaults,
+    scales: {
+      ...chartDefaults.scales,
+      y: { ...chartDefaults.scales.y, min: 94, max: 114,
+           ticks: { ...chartDefaults.scales.y.ticks,
+             callback: v => v.toFixed(0) } }
+    }
+  }
+});
+
+// Chart 3 — BEV price by segment
+new Chart(document.getElementById('chart3'), {
+  type: 'line',
+  data: {
+    labels: months,
+    datasets: [
+      lineDs('EstateCar', '#c0392b', [100, 112.2, 104.7, 111.1, 109.3]),
+      lineDs('Limousine', '#27ae60', [100, 106.7, 101.6, 101.8, 101.9]),
+      lineDs('OffRoad',   '#2980b9', [100,  97.7, 107.4, 103.7, 106.1]),
+    ]
+  },
+  options: {
+    ...chartDefaults,
+    scales: {
+      ...chartDefaults.scales,
+      y: { ...chartDefaults.scales.y, min: 94, max: 116,
+           ticks: { ...chartDefaults.scales.y.ticks,
+             callback: v => v.toFixed(0) } }
+    }
+  }
+});
+
+// Chart 4 — BEV RV by segment
+new Chart(document.getElementById('chart4'), {
+  type: 'line',
+  data: {
+    labels: months,
+    datasets: [
+      lineDs('EstateCar', '#c0392b', [100,  94.3,  97.3,  99.5, 101.0]),
+      lineDs('Limousine', '#27ae60', [100,  98.4, 103.0, 104.2, 108.0]),
+      lineDs('OffRoad',   '#2980b9', [100, 101.3, 109.5, 108.6, 111.4]),
+    ]
+  },
+  options: {
+    ...chartDefaults,
+    scales: {
+      ...chartDefaults.scales,
+      y: { ...chartDefaults.scales.y, min: 90, max: 116,
+           ticks: { ...chartDefaults.scales.y.ticks,
+             callback: v => v.toFixed(0) } }
+    }
+  }
+});
+</script>
+</body>
+</html>
